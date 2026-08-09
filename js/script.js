@@ -4,8 +4,9 @@
 const typingElement = document.getElementById("typing");
 const phrases = [
     "Salesforce Developer",
+    "Sales Cloud & Service Cloud",
     "Automation & Integrations",
-    "Exploring Agentforce & AI"
+    "Building Salesforce Solutions"
 ];
 let phraseIndex = 0;
 let characterIndex = 0;
@@ -56,7 +57,7 @@ function animatePoints() {
     if (position < window.innerHeight * 0.8) {
         counterStarted = true;
         let current = 0;
-        const target = 400;
+        const target = 410;
         const interval = setInterval(() => {
             current += 4;
             pointsElement.textContent = current;
