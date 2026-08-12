@@ -90,7 +90,7 @@ aside {
 .aside-content {
     width: 100%;
     height: 100%;
-    padding: 35px 15px 20px;
+    padding: 20px 20px 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -123,7 +123,7 @@ aside {
     width: 100%;
     height: 1px;
     min-height: 1px;
-    margin: 24px 0;
+    margin: 14px 0;
     background: var(--border);
     flex-shrink: 0;
 }
@@ -132,7 +132,7 @@ aside {
 }
 .aside-section-title {
     width: 100%;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     text-align: center;
 }
 .aside-section-title span {
@@ -144,41 +144,68 @@ aside {
 .aside-clouds {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(4, 50px);
+    grid-template-columns: repeat(3, 1fr);
     gap: 6px;
-    justify-content: center;
+    row-gap: 7px;
 }
 .cloud-item {
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--text);
+    transition: transform 0.25s ease;
+}
+.cloud-icon {
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px solid var(--border);
-    border-radius: 7px;
+    border-radius: 8px;
     background: transparent;
+    box-sizing: border-box;
     transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
 }
 .cloud-item img {
-    width: 45px;
-    height: 45px;
+    width: 37px;
+    height: 37px;
     object-fit: contain;
+    display: block;
     transition: transform 0.25s ease;
 }
-.cloud-item:hover {
+.cloud-item span {
+    margin-top: 3px;
+    color: var(--text);
+    font-size: 0.56rem;
+    line-height: 1.1;
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0.7;
+    transition: color 0.25s ease, opacity 0.25s ease;
+}
+.cloud-item:hover .cloud-icon {
     transform: translateY(-3px);
     border-color: #38bdf8;
     background:rgba(56, 189, 248, 0.08);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
-.cloud-item:hover img {
-    transform: scale(1.1);
+.cloud-item:hover .cloud-icon img {
+    transform: scale(1.08);
+}
+.cloud-item:hover span {
+    color: #38bdf8;
+    opacity: 1;
 }
 .aside-contact {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+    flex-shrink: 0;
 }
 .aside-contact > span {
     color: var(--text);
@@ -214,21 +241,21 @@ aside {
 .aside-mascote {
     flex: 1;
     width: 100%;
+    min-height: 0;
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    overflow: visible;
+    overflow: hidden;
 }
 .aside-mascote img {
-    width: 120px;
-    height: auto;
-    max-height: 150px;
+    width: 150px;
+    max-height: 130px;
     object-fit: contain;
     display: block;
     transition: transform 0.8s ease;
 }
 .aside-mascote img:hover {
-    transform: translateY(-5px) scale(1.08);
+    transform: translateY(-5px) scale(1.03);
 }
 /* =========================================
    MAIN
@@ -303,24 +330,23 @@ main {
    HERO VISUAL
 ========================================= */
 .hero-visual {
-    height: 350px;
+    width: 100%;
+    height: 430px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
+    overflow: visible;
 }
-
 .salesforce-logo {
     width: 200px;
     height: auto;
-}
-
-.cloud-shape {
-    font-size: 9rem;
-    color: var(--blue);
     position: relative;
-    z-index: 2;
+    z-index: 5;
+}
+.cloud-shape {
+    position: relative;
+    z-index: 5;
     animation: float 4s ease-in-out infinite;
     filter:
         drop-shadow(
@@ -341,55 +367,355 @@ main {
     border-radius: 50%;
     filter: blur(70px);
     position: absolute;
+    z-index: 1;
 }
 @keyframes float {
     0%, 100% {
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-12px);
+        transform: translateY(-10px);
     }
 }
 /* =========================================
-   PARTICLES
+   SALESFORCE CENTRAL
 ========================================= */
-.floating-dot {
-    width: 5px;
-    height: 5px;
-    background: var(--blue);
-    border-radius: 50%;
+.cloud-shape {
     position: absolute;
-    opacity: 0.6;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    animation:
+        salesforce-float
+        4s ease-in-out infinite;
+    filter:
+        drop-shadow(
+            0 0 25px
+            rgba(22, 168, 224, 0.30)
+        );
 }
-.dot-one {
-    top: 80px;
-    left: 25%;
-    animation: particle-one 4s infinite;
+.salesforce-logo {
+    width: 200px;
+    height: auto;
+    display: block;
 }
-.dot-two {
-    top: 170px;
-    right: 20%;
-    animation: particle-two 5s infinite;
+/* =========================================
+   GLOW CENTRAL
+========================================= */
+.glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250px;
+    height: 250px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background:
+        rgba(22, 168, 224, 0.13);
+    filter: blur(75px);
+    z-index: 1;
 }
-.dot-three {
-    bottom: 70px;
-    left: 35%;
-    animation: particle-three 6s infinite;
+/* =========================================
+   ÓRBITA
+========================================= */
+.orbit-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 360px;
+    height: 360px;
+    transform: translate(-50%, -50%);
+    border:
+        1px solid
+        rgba(56, 189, 248, 0.18);
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow:
+        0 0 25px
+        rgba(56, 189, 248, 0.03);
 }
-@keyframes particle-one {
+/* =========================================
+   SALESFORCE ECOSYSTEM
+========================================= */
+.orbit-ring {
+    position: absolute;
+    width: 285px;
+    height: 285px;
+    border: 1px solid rgba(56, 189, 248, 0.16);
+    border-radius: 50%;
+    z-index: 2;
+}
+/* =========================================
+   FLOATING PRODUCTS
+========================================= */
+.floating-product {
+    --x: 0px;
+    --y: 0px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform:
+        translate(-50%, -50%)
+        translate(var(--x), var(--y));
+    z-index: 4;
+}
+.floating-product img {
+    width: 31px;
+    height: 31px;
+    object-fit: contain;
+}
+/* =========================================
+   CÍRCULO DOS ÍCONES
+========================================= */
+.floating-product-inner {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+    border-radius: 50%;
+    background:
+        rgba(10, 25, 47, 0.82);
+    backdrop-filter: blur(5px);
+    box-sizing: border-box;
+    opacity: 0.92;
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background-color 0.3s ease,
+        box-shadow 0.3s ease,
+        opacity 0.3s ease;
+}
+.floating-product-inner img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: block;
+}
+/* =========================================
+   POSIÇÕES CIRCULARES
+========================================= */
+
+/*
+   Raio: 195px
+
+   12 elementos
+   30° entre cada posição
+*/
+.product-01 {
+    --x: 0px;
+    --y: -195px;
+}
+.product-02 {
+    --x: 97.5px;
+    --y: -168.9px;
+}
+.product-03 {
+    --x: 168.9px;
+    --y: -97.5px;
+}
+.product-04 {
+    --x: 195px;
+    --y: 0px;
+}
+.product-05 {
+    --x: 168.9px;
+    --y: 97.5px;
+}
+.product-06 {
+    --x: 97.5px;
+    --y: 168.9px;
+}
+.product-07 {
+    --x: 0px;
+    --y: 195px;
+}
+.product-08 {
+    --x: -97.5px;
+    --y: 168.9px;
+}
+.product-09 {
+    --x: -168.9px;
+    --y: 97.5px;
+}
+.product-10 {
+    --x: -195px;
+    --y: 0px;
+}
+.product-11 {
+    --x: -168.9px;
+    --y: -97.5px;
+}
+.product-12 {
+    --x: -97.5px;
+    --y: -168.9px;
+}
+/* =========================================
+   ANIMAÇÕES
+========================================= */
+@keyframes salesforce-float {
+    0%,
+    100% {
+        transform: translate(-50%, -50%);
+    }
     50% {
-        transform: translate(15px, -20px);
+        transform: translate(-50%, calc(-50% - 8px));
     }
 }
-@keyframes particle-two {
+.product-01 .floating-product-inner {
+    animation: float-01 4.2s ease-in-out infinite;
+}
+.product-02 .floating-product-inner {
+    animation: float-02 4.8s ease-in-out infinite;
+}
+.product-03 .floating-product-inner {
+    animation: float-03 5.1s ease-in-out infinite;
+}
+.product-04 .floating-product-inner {
+    animation: float-04 4.5s ease-in-out infinite;
+}
+.product-05 .floating-product-inner {
+    animation: float-05 5.3s ease-in-out infinite;
+}
+.product-06 .floating-product-inner {
+    animation: float-06 4.7s ease-in-out infinite;
+}
+.product-07 .floating-product-inner {
+    animation: float-07 5.0s ease-in-out infinite;
+}
+.product-08 .floating-product-inner {
+    animation: float-08 4.4s ease-in-out infinite;
+}
+.product-09 .floating-product-inner {
+    animation: float-09 5.2s ease-in-out infinite;
+}
+.product-10 .floating-product-inner {
+    animation: float-10 4.6s ease-in-out infinite;
+}
+.product-11 .floating-product-inner {
+    animation: float-11 5.4s ease-in-out infinite;
+}
+.product-12 .floating-product-inner {
+    animation: float-12 4.9s ease-in-out infinite;
+}
+@keyframes float-01 {
+    0%, 100% {
+        transform: translateY(0);
+    }
     50% {
-        transform: translate(-20px, 15px);
+        transform: translateY(-7px);
     }
 }
-@keyframes particle-three {
-    50% {
-        transform: translate(15px, 15px);
+@keyframes float-02 {
+    0%, 100% {
+        transform: translate(0, 0);
     }
+    50% {
+        transform: translate(5px, -5px);
+    }
+}
+@keyframes float-03 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(6px, -2px);
+    }
+}
+@keyframes float-04 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(6px, 4px);
+    }
+}
+@keyframes float-05 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(4px, 6px);
+    }
+}
+@keyframes float-06 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-4px, 6px);
+    }
+}
+@keyframes float-07 {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(7px);
+    }
+}
+@keyframes float-08 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-5px, 6px);
+    }
+}
+@keyframes float-09 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-6px, 3px);
+    }
+}
+@keyframes float-10 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-6px, -4px);
+    }
+}
+@keyframes float-11 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-5px, -6px);
+    }
+}
+@keyframes float-12 {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-3px, -6px);
+    }
+}
+/* =========================================
+   HOVER
+========================================= */
+.floating-product-inner:hover {
+    opacity: 1;
+    border-color:
+        var(--blue);
+    background:
+        rgba(22, 168, 224, 0.10);
+    box-shadow:
+        0 0 18px
+        rgba(56, 189, 248, 0.15);
+    transform: scale(1.10);
 }
 /* =========================================
    TRAJECTORY
@@ -687,11 +1013,26 @@ footer {
         max-width: 520px;
     }
     .hero-visual {
-        height: 300px;
+        height: 390px;
         margin-top: 30px;
     }
     .salesforce-logo {
-        width: 170px;
+        width: 175px;
+    }
+    .orbit-ring {
+        width: 320px;
+        height: 320px;
+    }
+    .floating-product {
+        --scale: 0.88;
+    }
+    .floating-product-inner {
+        width: 46px;
+        height: 46px;
+    }
+    .floating-product-inner img {
+        width: 29px;
+        height: 29px;
     }
     .glow {
         width: 190px;
@@ -714,6 +1055,54 @@ footer {
     }
     .clouds, .technologies {
         padding: 55px 0;
+    }
+    .product-01 {
+        --x: 0px;
+        --y: -170px;
+    }
+    .product-02 {
+        --x: 85px;
+        --y: -147px;
+    }
+    .product-03 {
+        --x: 147px;
+        --y: -85px;
+    }
+    .product-04 {
+        --x: 170px;
+        --y: 0px;
+    }
+    .product-05 {
+        --x: 147px;
+        --y: 85px;
+    }
+    .product-06 {
+        --x: 85px;
+        --y: 147px;
+    }
+    .product-07 {
+        --x: 0px;
+        --y: 170px;
+    }
+    .product-08 {
+        --x: -85px;
+        --y: 147px;
+    }
+    .product-09 {
+        --x: -147px;
+        --y: 85px;
+    }
+    .product-10 {
+        --x: -170px;
+        --y: 0px;
+    }
+    .product-11 {
+        --x: -147px;
+        --y: -85px;
+    }
+    .product-12 {
+        --x: -85px;
+        --y: -147px;
     }
 }
 /* MOBILE */
@@ -803,11 +1192,71 @@ footer {
         font-size: 0.75rem;
     }
     .hero-visual {
-        height: 230px;
+        height: 330px;
         margin-top: 35px;
     }
     .salesforce-logo {
-        width: 145px;
+        width: 140px;
+    }
+    .orbit-ring {
+        width: 245px;
+        height: 245px;
+    }
+    .floating-product-inner {
+        width: 38px;
+        height: 38px;
+    }
+    .floating-product-inner img {
+        width: 24px;
+        height: 24px;
+    }
+    .product-01 {
+        --x: 0px;
+        --y: -135px;
+    }
+    .product-02 {
+        --x: 67.5px;
+        --y: -116.9px;
+    }
+    .product-03 {
+        --x: 116.9px;
+        --y: -67.5px;
+    }
+    .product-04 {
+        --x: 135px;
+        --y: 0px;
+    }
+    .product-05 {
+        --x: 116.9px;
+        --y: 67.5px;
+    }
+    .product-06 {
+        --x: 67.5px;
+        --y: 116.9px;
+    }
+    .product-07 {
+        --x: 0px;
+        --y: 135px;
+    }
+    .product-08 {
+        --x: -67.5px;
+        --y: 116.9px;
+    }
+    .product-09 {
+        --x: -116.9px;
+        --y: 67.5px;
+    }
+    .product-10 {
+        --x: -135px;
+        --y: 0px;
+    }
+    .product-11 {
+        --x: -116.9px;
+        --y: -67.5px;
+    }
+    .product-12 {
+        --x: -67.5px;
+        --y: -116.9px;
     }
     .glow {
         width: 165px;
